@@ -5,7 +5,6 @@ from keras.layers import Dense
 from keras.layers import LSTM
 import keras
 
-
 def window_transform_series(series, window_size):
     X = list(map(lambda i:series[i:i+window_size],range(0,len(series) - window_size)))
     y = series[window_size:]
@@ -43,7 +42,7 @@ def cleaned_text(text):
 def window_transform_text(text, window_size, step_size):
     # containers for input/output pairs
     inputs = [text[start:start+window_size] for start in range(0,len(text) - window_size, step_size)]
-    outputs = [text[end:end+1] for end in range(window_size,len(text))]
+    outputs = [text[end] for end in range(window_size,len(text),step_size)]
 
     return inputs,outputs
 
@@ -52,10 +51,7 @@ def window_transform_text(text, window_size, step_size):
 def build_part2_RNN(window_size, num_chars):
     model = Sequential()
     
-    model.add(LSTM(window_size, return_sequences=True, input_shape=(window_size,num_chars)))
-    model.add(LSTM(window_size, return_sequences=True))
-    model.add(LSTM(window_size))
-    
-    model.add(Dense(num_chars,activation='softmax'))
+    model.add(LSTM(200, input_shape=(window_size,num_chars),))
+    model.add(Dense(num_chars, activation='softmax'))
    
     return model
