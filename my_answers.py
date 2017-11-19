@@ -17,16 +17,16 @@ def window_transform_series(series, window_size):
     
     return X,y
 
-# TODO: build an RNN to perform regression on our time series input/output data
+### Build an RNN to perform regression on our time series input/output data
 def build_part1_RNN(window_size):
     model = Sequential()
-    model.add(LSTM(window_size, input_shape=(window_size,1)))
-    
+    model.add(LSTM(5, input_shape=(window_size,1)))
     model.add(Dense(1))
+
     return model
 
 
-### TODO: return the text input with only ascii lowercase and the punctuation given below included.
+### Return the text input with only ascii lowercase and the punctuation given below included.
 def cleaned_text(text):
     punctuation = ['!', ',', '.', ':', ';', '?']
 
@@ -38,7 +38,7 @@ def cleaned_text(text):
 
     return clean_text
 
-### TODO: fill out the function below that transforms the input text and window-size into a set of input/output pairs for use with our RNN model
+### Fill out the function below that transforms the input text and window-size into a set of input/output pairs for use with our RNN model
 def window_transform_text(text, window_size, step_size):
     # containers for input/output pairs
     inputs = [text[start:start+window_size] for start in range(0,len(text) - window_size, step_size)]
@@ -46,7 +46,7 @@ def window_transform_text(text, window_size, step_size):
 
     return inputs,outputs
 
-# TODO build the required RNN model: 
+### Build the required RNN model: 
 # a single LSTM hidden layer with softmax activation, categorical_crossentropy loss 
 def build_part2_RNN(window_size, num_chars):
     model = Sequential()
