@@ -52,10 +52,10 @@ def window_transform_text(text, window_size, step_size):
 def build_part2_RNN(window_size, num_chars):
     model = Sequential()
     
-    # First RNN layer
     model.add(LSTM(window_size, return_sequences=True, input_shape=(window_size,num_chars)))
+    model.add(LSTM(window_size, return_sequences=True))
     model.add(LSTM(window_size))
-
+    
     model.add(Dense(num_chars,activation='softmax'))
    
     return model
